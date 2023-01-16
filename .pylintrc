@@ -1,0 +1,26 @@
+[MESSAGES CONTROL]
+
+# Enable the message, report, category or checker with the given id(s). You can
+# either give multiple identifier separated by comma (,) or put this option
+# multiple time.
+#enable=
+
+# Disable the message, report, category or checker with the given id(s). You
+# can either give multiple identifier separated by comma (,) or put this option
+# multiple time (only on the command line, not in the configuration file where
+# it should appear only once).
+#disable=
+
+#Define tabs size as 4
+indent-string='    '
+
+[FORMAT]
+#Set naming stype to camelCase
+function-rgx=[a-z_][a-z0-9_]{2,30}$
+method-rgx=[a-z_][a-z0-9_]{2,30}$
+attr-rgx=[a-z_][a-z0-9_]{2,30}$
+argument-rgx=[a-z_][a-zA-Z0-9_]{2,30}$
+variable-rgx=[a-z_][a-zA-Z0-9_]{2,30}$
+const-rgx=(([A-Z_][A-Z0-9_]*)|(__.*__))$
+inlinevar-rgx=[A-Za-z_][A-Za-z0-9_]*$
+no-docstring-rgx=__.*__
