@@ -10,12 +10,18 @@ resource "azurerm_storage_account" "funcdeploy" {
   location                 = azurerm_resource_group.funcdeploy.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
+  depends_on = [
+    azurerm_resource_group.funcdeploy
+  ]
 }
 
 resource "azurerm_storage_container" "funcdeploy" {
   name                  = "contents"
   storage_account_name  = azurerm_storage_account.funcdeploy.name
   container_access_type = "private"
+  depends_on = [
+    azurerm_storage_account.funcdeploy
+  ]
 }
 
 resource "azurerm_app_service_plan" "funcdeploy" {
@@ -29,6 +35,10 @@ resource "azurerm_app_service_plan" "funcdeploy" {
     tier = "Dynamic"
     size = "Y1"
   }
+
+  depends_on = [
+    azurerm_resource_group.funcdeploy
+  ]
 }
 
 resource "azurerm_application_insights" "funcdeploy" {
@@ -41,6 +51,10 @@ resource "azurerm_application_insights" "funcdeploy" {
   tags = {
     "hidden-link:${azurerm_resource_group.funcdeploy.id}/providers/Microsoft.Web/sites/${var.function_prefix}func" = "Resource"
   }
+
+  depends_on = [
+    azurerm_resource_group.funcdeploy
+  ]
 }
 
 
@@ -65,6 +79,12 @@ resource "azurerm_function_app" "funcdeploy" {
     linux_fx_version = "Python|3.8"
     ftps_state       = "Disabled"
   }
+
+  depends_on = [
+    azurerm_resource_group.funcdeploy,
+    azurerm_storage_account.funcdeploy,
+    azurerm_app_service_plan.funcdeploy,
+  ]
 
   # Enable if you need Managed Identity
   # identity {
