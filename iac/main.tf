@@ -66,7 +66,7 @@ resource "azurerm_function_app" "funcdeploy" {
   storage_account_name       = azurerm_storage_account.funcdeploy.name
   storage_account_access_key = azurerm_storage_account.funcdeploy.primary_access_key
   https_only                 = true
-  version                    = "~3"
+  version                    = "3.10.9"
   os_type                    = "linux"
   app_settings = {
     "WEBSITE_RUN_FROM_PACKAGE"              = "1"
